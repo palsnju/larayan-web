@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support - LiT</title>
+    <link rel="icon" href="favicon.png" type="image/png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            background: #faf9f6;
+            color: #2c2c2c;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #f472b6, #fb923c, #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 2px;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #2c2c2c;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #fb923c;
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(135deg, #f472b6, #fb923c, #fbbf24);
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #2c2c2c;
+            transition: 0.3s;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 6rem 2rem 3rem;
+            text-align: center;
+            background: linear-gradient(135deg, #faf9f6 0%, #f5f0e8 50%, #f8f5f0 100%);
+        }
+
+        .page-title {
+            font-size: 4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #f472b6, #fb923c, #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .page-subtitle {
+            font-size: 1.5rem;
+            color: #6b6b6b;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Support Section */
+        .support-section {
+            padding: 4rem 2rem 6rem;
+            background: #ffffff;
+        }
+
+        .support-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .support-form {
+            background: linear-gradient(135deg, #faf9f6 0%, #ffffff 100%);
+            border: 2px solid #e5e5e0;
+            border-radius: 30px;
+            padding: 3rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .form-group {
+            margin-bottom: 1.8rem;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: #2c2c2c;
+            margin-bottom: 0.7rem;
+            font-size: 1rem;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e5e5e0;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            background: #ffffff;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: #fb923c;
+            box-shadow: 0 0 0 3px rgba(251, 146, 60, 0.1);
+        }
+
+        .phone-group {
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            gap: 1rem;
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        /* Tags Section */
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 0.8rem;
+        }
+
+        .tag {
+            padding: 0.6rem 1.2rem;
+            background: #ffffff;
+            border: 2px solid #e5e5e0;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #4a4a4a;
+        }
+
+        .tag:hover {
+            border-color: #fb923c;
+            background: rgba(251, 146, 60, 0.05);
+        }
+
+        .tag.selected {
+            background: linear-gradient(135deg, #f472b6, #fb923c);
+            color: white;
+            border-color: transparent;
+        }
+
+        .custom-tag-input-group {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 0.8rem;
+        }
+
+        .custom-tag-input {
+            flex: 1;
+            padding: 0.7rem 1rem;
+            border: 2px solid #e5e5e0;
+            border-radius: 12px;
+            font-size: 0.95rem;
+        }
+
+        .add-tag-btn {
+            padding: 0.7rem 1.5rem;
+            background: linear-gradient(135deg, #f472b6, #fb923c);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .add-tag-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(244, 114, 182, 0.3);
+        }
+
+        /* Description with controls */
+        .description-container {
+            position: relative;
+        }
+
+        .description-controls {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            display: flex;
+            gap: 0.5rem;
+            z-index: 10;
+        }
+
+        .control-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: linear-gradient(135deg, #f472b6, #fb923c);
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(244, 114, 182, 0.3);
+        }
+
+        .control-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px rgba(244, 114, 182, 0.5);
+        }
+
+        .control-btn.recording {
+            animation: pulse-recording 1.5s infinite;
+        }
+
+        @keyframes pulse-recording {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(244, 114, 182, 0.7);
+            }
+
+            50% {
+                box-shadow: 0 0 0 10px rgba(244, 114, 182, 0);
+            }
+        }
+
+        /* File attachments */
+        .attachments-area {
+            margin-top: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .attachment-item {
+            position: relative;
+            padding: 1rem;
+            background: #faf9f6;
+            border: 2px solid #e5e5e0;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            max-width: 250px;
+        }
+
+        .attachment-icon {
+            font-size: 1.5rem;
+        }
+
+        .attachment-name {
+            flex: 1;
+            font-size: 0.9rem;
+            color: #4a4a4a;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .remove-attachment {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #fb923c;
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .remove-attachment:hover {
+            background: #f472b6;
+            transform: scale(1.1);
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: linear-gradient(135deg, #f472b6, #fb923c);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(244, 114, 182, 0.3);
+            margin-top: 2rem;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(244, 114, 182, 0.5);
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .success-icon {
+            font-size: 5rem;
+            margin-bottom: 2rem;
+        }
+
+        .success-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #f472b6, #fb923c, #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+        }
+
+        .success-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #4a4a4a;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, #f472b6, #fb923c);
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(244, 114, 182, 0.3);
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(244, 114, 182, 0.5);
+        }
+
+        /* Footer */
+        footer {
+            background: #ffffff;
+            border-top: 1px solid #e5e5e0;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            color: #6b6b6b;
+        }
+
+        .footer-logo {
+            font-size: 1.2rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #f472b6, #fb923c, #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Hide default Frappe footer */
+        .web-footer,
+        .website-footer,
+        [class*="powered-by"]:not(.powered-by),
+        [class*="frappe-footer"] {
+            display: none !important;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(255, 255, 255, 0.98);
+                padding: 2rem;
+                gap: 1.5rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .page-title {
+                font-size: 2.5rem;
+            }
+
+            .page-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .support-form {
+                padding: 2rem;
+            }
+
+            .phone-group {
+                grid-template-columns: 120px 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                <a href="index.html" class="logo-text">LiT</a>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="support.html" class="active">Support</a></li>
+                <li><a href="career.html">Career</a></li>
+                <li><a href="about.html">About Us</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1 class="page-title">Support</h1>
+        <p class="page-subtitle">We're here to help! Submit your request and our team will get back to you</p>
+    </section>
+
+    <!-- Support Section -->
+    <section class="support-section">
+        <div class="support-container">
+
+            <!-- Support Form -->
+            <form class="support-form" id="supportForm">
+                <!-- Name -->
+                <div class="form-group">
+                    <label class="form-label" for="name">Full Name *</label>
+                    <input type="text" id="name" class="form-input" placeholder="Enter your full name" required>
+                </div>
+
+                <!-- Email -->
+                <div class="form-group">
+                    <label class="form-label" for="email">Email Address *</label>
+                    <input type="email" id="email" class="form-input" placeholder="your.email@example.com" required>
+                </div>
+
+                <!-- Phone -->
+                <div class="form-group">
+                    <label class="form-label" for="phone">Phone Number *</label>
+                    <div class="phone-group">
+                        <select id="countryCode" class="form-select" required>
+                            <option value="+91" selected>🇮🇳 +91</option>
+                            <option value="+1">🇺🇸 +1</option>
+                            <option value="+44">🇬🇧 +44</option>
+                            <option value="+61">🇦🇺 +61</option>
+                            <option value="+971">🇦🇪 +971</option>
+                            <option value="+65">🇸🇬 +65</option>
+                            <option value="+86">🇨🇳 +86</option>
+                            <option value="+81">🇯🇵 +81</option>
+                        </select>
+                        <input type="tel" id="phone" class="form-input" placeholder="XXXXX XXXXX" required>
+                    </div>
+                </div>
+
+                <!-- Tags -->
+                <div class="form-group">
+                    <label class="form-label">Issue Tags *</label>
+                    <div class="tags-container" id="tagsContainer">
+                        <div class="tag" data-tag="billing">#billing</div>
+                        <div class="tag" data-tag="accountAccess">#accountAccess</div>
+                        <div class="tag" data-tag="payment">#payment</div>
+                        <div class="tag" data-tag="refund">#refund</div>
+                    </div>
+                    <div class="custom-tag-input-group">
+                        <input type="text" id="customTag" class="custom-tag-input"
+                            placeholder="Add custom tag (e.g., #technical)">
+                        <button type="button" class="add-tag-btn" onclick="addCustomTag()">+ Add</button>
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <div class="form-group">
+                    <label class="form-label" for="description">Description *</label>
+                    <div class="description-container">
+                        <textarea id="description" class="form-textarea" placeholder="Describe your issue in detail..."
+                            required></textarea>
+                        <div class="description-controls">
+                            <input type="file" id="fileInput" accept="image/*,.pdf" multiple style="display: none;"
+                                onchange="handleFileSelect(event)">
+                            <button type="button" class="control-btn"
+                                onclick="document.getElementById('fileInput').click()" title="Attach files">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path
+                                        d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48" />
+                                </svg>
+                            </button>
+                            <button type="button" class="control-btn" id="micBtn" onclick="toggleRecording()"
+                                title="Voice input">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" />
+                                    <path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v4M8 23h8" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="attachments-area" id="attachmentsArea"></div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="submit-btn">Submit Support Ticket</button>
+            </form>
+
+            <!-- Success Message -->
+            <div class="success-message" id="successMessage">
+                <div class="success-icon">😊</div>
+                <h2 class="success-title">Thank You!</h2>
+                <p class="success-text">
+                    We truly appreciate you reaching out to us. Your ticket has been received, and we're working
+                    tirelessly to build world-class solutions that exceed your expectations.
+                    <br><br>
+                    Once our platform is ready, we'll review your request with the attention and care it deserves. Your
+                    trust inspires us to deliver excellence every single day!
+                </p>
+                <button class="back-btn" onclick="resetForm()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 12H5M12 19l-7-7 7-7" />
+                    </svg>
+                    Back to Form
+                </button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">Larayan Information and Technology</div>
+            <p>&copy; 2025 LiT. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Hamburger menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Tags functionality
+        const selectedTags = new Set();
+
+        document.querySelectorAll('.tag').forEach(tag => {
+            tag.addEventListener('click', function () {
+                const tagValue = this.dataset.tag;
+                if (this.classList.contains('selected')) {
+                    this.classList.remove('selected');
+                    selectedTags.delete(tagValue);
+                } else {
+                    this.classList.add('selected');
+                    selectedTags.add(tagValue);
+                }
+            });
+        });
+
+        // Custom tag functionality
+        function addCustomTag() {
+            const input = document.getElementById('customTag');
+            const tagText = input.value.trim();
+
+            if (tagText) {
+                const formattedTag = tagText.startsWith('#') ? tagText : '#' + tagText;
+                const tagContainer = document.getElementById('tagsContainer');
+
+                const newTag = document.createElement('div');
+                newTag.className = 'tag selected';
+                newTag.textContent = formattedTag;
+                newTag.dataset.tag = formattedTag;
+
+                newTag.addEventListener('click', function () {
+                    if (this.classList.contains('selected')) {
+                        this.classList.remove('selected');
+                        selectedTags.delete(formattedTag);
+                    } else {
+                        this.classList.add('selected');
+                        selectedTags.add(formattedTag);
+                    }
+                });
+
+                tagContainer.appendChild(newTag);
+                selectedTags.add(formattedTag);
+                input.value = '';
+            }
+        }
+
+        // File attachments
+        const attachedFiles = [];
+
+        function handleFileSelect(event) {
+            const files = event.target.files;
+            const attachmentsArea = document.getElementById('attachmentsArea');
+
+            Array.from(files).forEach(file => {
+                if (file.type.match('image.*') || file.type === 'application/pdf') {
+                    attachedFiles.push(file);
+
+                    const attachmentItem = document.createElement('div');
+                    attachmentItem.className = 'attachment-item';
+
+                    const icon = file.type.match('image.*') ? '🖼️' : '📄';
+
+                    attachmentItem.innerHTML = `
+                        <span class="attachment-icon">${icon}</span>
+                        <span class="attachment-name">${file.name}</span>
+                        <button type="button" class="remove-attachment" onclick="removeAttachment(this, '${file.name}')">×</button>
+                    `;
+
+                    attachmentsArea.appendChild(attachmentItem);
+                }
+            });
+
+            event.target.value = '';
+        }
+
+        function removeAttachment(button, fileName) {
+            const index = attachedFiles.findIndex(f => f.name === fileName);
+            if (index > -1) {
+                attachedFiles.splice(index, 1);
+            }
+            button.parentElement.remove();
+        }
+
+        // Voice recording
+        let recognition = null;
+        let isRecording = false;
+
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            recognition.continuous = true;
+            recognition.interimResults = true;
+
+            recognition.onresult = (event) => {
+                const transcript = Array.from(event.results)
+                    .map(result => result[0].transcript)
+                    .join('');
+
+                document.getElementById('description').value = transcript;
+            };
+
+            recognition.onerror = (event) => {
+                console.error('Speech recognition error:', event.error);
+                stopRecording();
+            };
+        }
+
+        function toggleRecording() {
+            const micBtn = document.getElementById('micBtn');
+
+            if (!recognition) {
+                alert('Speech recognition is not supported in your browser');
+                return;
+            }
+
+            if (isRecording) {
+                stopRecording();
+            } else {
+                startRecording();
+            }
+        }
+
+        function startRecording() {
+            recognition.start();
+            isRecording = true;
+            document.getElementById('micBtn').classList.add('recording');
+        }
+
+        function stopRecording() {
+            if (recognition) {
+                recognition.stop();
+            }
+            isRecording = false;
+            document.getElementById('micBtn').classList.remove('recording');
+        }
+
+        // Form submission
+        document.getElementById('supportForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            if (selectedTags.size === 0) {
+                alert('Please select at least one tag');
+                return;
+            }
+
+            // Show success message
+            document.querySelector('.support-form').style.display = 'none';
+            document.getElementById('successMessage').classList.add('show');
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Reset form
+        function resetForm() {
+            document.getElementById('supportForm').reset();
+            selectedTags.clear();
+            document.querySelectorAll('.tag').forEach(tag => {
+                tag.classList.remove('selected');
+            });
+            document.getElementById('attachmentsArea').innerHTML = '';
+            attachedFiles.length = 0;
+
+            document.querySelector('.support-form').style.display = 'block';
+            document.getElementById('successMessage').classList.remove('show');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Allow Enter key to add custom tags
+        document.getElementById('customTag').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                addCustomTag();
+            }
+        });
+    </script>
+</body>
+
+</html>

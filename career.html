@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career - LiT</title>
+    <link rel="icon" href="favicon.png" type="image/png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            background: #faf9f6;
+            color: #2c2c2c;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #f472b6, #fb923c, #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 2px;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #2c2c2c;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #fb923c;
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(135deg, #f472b6, #fb923c, #fbbf24);
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #2c2c2c;
+            transition: 0.3s;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 6rem 2rem 3rem;
+            text-align: center;
+            background: linear-gradient(135deg, #faf9f6 0%, #f5f0e8 50%, #f8f5f0 100%);
+        }
+
+        .page-title {
+            font-size: 4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #f472b6, #fb923c, #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .page-subtitle {
+            font-size: 1.5rem;
+            color: #6b6b6b;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Welcome Message Section */
+        .welcome-section {
+            padding: 4rem 2rem;
+            background: #ffffff;
+        }
+
+        .welcome-container {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .welcome-card {
+            background: linear-gradient(135deg, #faf9f6 0%, #ffffff 100%);
+            border: 2px solid #e5e5e0;
+            border-radius: 30px;
+            padding: 3.5rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(251, 146, 60, 0.05), transparent);
+            animation: pulse 8s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 0.8;
+            }
+        }
+
+        .welcome-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .welcome-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #f472b6, #fb923c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .welcome-message {
+            font-size: 1.25rem;
+            line-height: 1.9;
+            color: #4a4a4a;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .welcome-quote {
+            font-size: 1.4rem;
+            line-height: 1.8;
+            color: #2c2c2c;
+            font-style: italic;
+            padding: 2rem;
+            background: rgba(251, 146, 60, 0.05);
+            border-left: 4px solid #fb923c;
+            border-radius: 10px;
+            margin-top: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Filters Section */
+        .filters-section {
+            padding: 3rem 2rem;
+            background: #faf9f6;
+        }
+
+        .filters-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .filters-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2c2c2c;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+        }
+
+        .filter-label {
+            font-weight: 600;
+            color: #2c2c2c;
+            font-size: 1rem;
+        }
+
+        .filter-input {
+            padding: 1rem;
+            border: 2px solid #e5e5e0;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            background: #ffffff;
+        }
+
+        .filter-input:focus {
+            outline: none;
+            border-color: #fb923c;
+            box-shadow: 0 0 0 3px rgba(251, 146, 60, 0.1);
+        }
+
+        .search-btn {
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, #f472b6, #fb923c);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(244, 114, 182, 0.3);
+            justify-self: center;
+            grid-column: 1 / -1;
+        }
+
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(244, 114, 182, 0.5);
+        }
+
+        /* Jobs Section */
+        .jobs-section {
+            padding: 3rem 2rem 6rem;
+            background: #ffffff;
+        }
+
+        .jobs-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .jobs-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2c2c2c;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .jobs-empty {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, #faf9f6 0%, #ffffff 100%);
+            border: 2px dashed #e5e5e0;
+            border-radius: 30px;
+        }
+
+        .jobs-empty-icon {
+            font-size: 5rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.6;
+        }
+
+        .jobs-empty-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #6b6b6b;
+            margin-bottom: 1rem;
+        }
+
+        .jobs-empty-text {
+            font-size: 1.2rem;
+            color: #9ca3af;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, #faf9f6 0%, #f5f0e8 100%);
+        }
+
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #f472b6, #fb923c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #4a4a4a;
+            margin-bottom: 2rem;
+        }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1.2rem 2.5rem;
+            background: linear-gradient(135deg, #f472b6, #fb923c);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(244, 114, 182, 0.3);
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(244, 114, 182, 0.5);
+        }
+
+        /* Footer */
+        footer {
+            background: #ffffff;
+            border-top: 1px solid #e5e5e0;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            color: #6b6b6b;
+        }
+
+        .footer-logo {
+            font-size: 1.2rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #f472b6, #fb923c, #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Hide default Frappe footer */
+        .web-footer,
+        .website-footer,
+        [class*="powered-by"]:not(.powered-by),
+        [class*="frappe-footer"] {
+            display: none !important;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(255, 255, 255, 0.98);
+                padding: 2rem;
+                gap: 1.5rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .page-title {
+                font-size: 2.5rem;
+            }
+
+            .page-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .welcome-card {
+                padding: 2rem;
+            }
+
+            .welcome-title {
+                font-size: 2rem;
+            }
+
+            .welcome-message {
+                font-size: 1.1rem;
+            }
+
+            .welcome-quote {
+                font-size: 1.2rem;
+            }
+
+            .filters-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                <a href="index.html" class="logo-text">LiT</a>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="support.html">Support</a></li>
+                <li><a href="career.html" class="active">Career</a></li>
+                <li><a href="about.html">About Us</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1 class="page-title">Careers at LiT</h1>
+        <p class="page-subtitle">Join us in building the future of technology</p>
+    </section>
+
+    <!-- Welcome Message Section -->
+    <section class="welcome-section">
+        <div class="welcome-container">
+            <div class="welcome-card">
+                <div class="welcome-icon">🌟</div>
+                <h2 class="welcome-title">Your Journey Starts Here</h2>
+                <p class="welcome-message">
+                    We truly appreciate your interest in joining the LiT family! While we're currently in an exciting
+                    phase of
+                    building world-class technology solutions, we're constantly on the lookout for exceptional talent
+                    like you.
+                    Your passion and skills could be the perfect match for our growing team.
+                </p>
+                <p class="welcome-message">
+                    Keep following our career portal regularly for the latest job notifications and opportunities. When
+                    the right
+                    moment arrives, we want you to be the first to know. Great things are coming, and we'd love for you
+                    to be
+                    part of this incredible journey!
+                </p>
+                <div class="welcome-quote">
+                    "Talent wins games, but teamwork and intelligence win championships. At LiT, we don't just hire
+                    employees —
+                    we build partnerships with visionaries who dare to dream big, innovate boldly, and create technology
+                    that
+                    transforms lives."
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filters Section -->
+    <section class="filters-section">
+        <div class="filters-container">
+            <h2 class="filters-title">Find Your Perfect Role</h2>
+            <div class="filters-grid">
+                <div class="filter-group">
+                    <label class="filter-label" for="country">Country / Location</label>
+                    <select id="country" class="filter-input">
+                        <option value="">All Locations</option>
+                        <option value="india">🇮🇳 India</option>
+                        <option value="usa">🇺🇸 United States</option>
+                        <option value="uk">🇬🇧 United Kingdom</option>
+                        <option value="canada">🇨🇦 Canada</option>
+                        <option value="australia">🇦🇺 Australia</option>
+                        <option value="singapore">🇸🇬 Singapore</option>
+                        <option value="uae">🇦🇪 UAE</option>
+                        <option value="germany">🇩🇪 Germany</option>
+                        <option value="remote">🌍 Remote</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label class="filter-label" for="keyword">Keyword / Job Title</label>
+                    <input type="text" id="keyword" class="filter-input"
+                        placeholder="e.g., Software Engineer, QA, Developer">
+                </div>
+
+                <button class="search-btn" onclick="searchJobs()">
+                    <svg style="display: inline; margin-right: 8px;" width="20" height="20" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8" />
+                        <path d="m21 21-4.35-4.35" />
+                    </svg>
+                    Search Opportunities
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Jobs Section -->
+    <section class="jobs-section">
+        <div class="jobs-container">
+            <h2 class="jobs-title">Current Openings</h2>
+
+            <div class="jobs-empty">
+                <div class="jobs-empty-icon">💼</div>
+                <h3 class="jobs-empty-title">Exciting Opportunities Coming Soon!</h3>
+                <p class="jobs-empty-text">
+                    We're preparing something amazing. New job openings will be posted here as we continue to grow.
+                    Bookmark this page and check back regularly!
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-container">
+            <h2 class="cta-title">Stay Connected With Us</h2>
+            <p class="cta-text">
+                Don't miss out on your dream opportunity! Follow us on social media and subscribe to our newsletter
+                to receive instant notifications when new positions open up. Your future with LiT could be just one
+                click away!
+            </p>
+            <a href="https://in.linkedin.com/in/larayan-lit-0b9b5a391" class="cta-btn">
+                🔔 Get Job Alerts
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">Larayan Information and Technology</div>
+            <p>&copy; 2025 LiT. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Hamburger menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Search jobs function
+        function searchJobs() {
+            const country = document.getElementById('country').value;
+            const keyword = document.getElementById('keyword').value;
+
+            // This is a placeholder for when jobs are available
+            console.log('Searching for jobs:', { country, keyword });
+
+            // Show a friendly message
+            alert('Thank you for your interest! We\'ll notify you as soon as positions matching your criteria become available. Keep checking back!');
+        }
+
+        // Allow Enter key to search
+        document.getElementById('keyword').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                searchJobs();
+            }
+        });
+    </script>
+</body>
+
+</html>

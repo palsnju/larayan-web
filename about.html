@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - LiT</title>
+    <link rel="icon" href="favicon.png" type="image/png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            background: #faf9f6;
+            color: #2c2c2c;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #f472b6, #fb923c, #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 2px;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #2c2c2c;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #fb923c;
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(135deg, #f472b6, #fb923c, #fbbf24);
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #2c2c2c;
+            transition: 0.3s;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 6rem 2rem 3rem;
+            text-align: center;
+            background: linear-gradient(135deg, #faf9f6 0%, #f5f0e8 50%, #f8f5f0 100%);
+        }
+
+        .page-title {
+            font-size: 4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #f472b6, #fb923c, #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .page-subtitle {
+            font-size: 1.5rem;
+            color: #6b6b6b;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 4rem 2rem;
+            background: #ffffff;
+        }
+
+        .about-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .section-block {
+            margin-bottom: 4rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-icon {
+            font-size: 2rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2c2c2c;
+        }
+
+        .section-content {
+            font-size: 1.15rem;
+            line-height: 1.9;
+            color: #4a4a4a;
+            text-align: justify;
+        }
+
+        .section-content p {
+            margin-bottom: 1.2rem;
+        }
+
+        /* Leadership Section */
+        .leadership-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .leader-card {
+            background: linear-gradient(135deg, #faf9f6 0%, #ffffff 100%);
+            border: 2px solid #e5e5e0;
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .leader-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(251, 146, 60, 0.2);
+            border-color: rgba(251, 146, 60, 0.4);
+        }
+
+        .leader-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #f472b6, #fb923c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .leader-title {
+            font-size: 1rem;
+            color: #fb923c;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .leader-description {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #6b6b6b;
+        }
+
+        /* Technology List */
+        .tech-list {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 1rem;
+        }
+
+        .tech-list li {
+            padding: 0.8rem 0;
+            padding-left: 2rem;
+            position: relative;
+            font-size: 1.1rem;
+            color: #4a4a4a;
+        }
+
+        .tech-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #fb923c;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .tech-list a {
+            color: #fb923c;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .tech-list a:hover {
+            color: #f472b6;
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(244, 114, 182, 0.05), rgba(251, 146, 60, 0.05));
+            border-left: 4px solid #fb923c;
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .highlight-box p {
+            font-size: 1.2rem;
+            line-height: 1.9;
+            color: #2c2c2c;
+            font-weight: 500;
+        }
+
+        /* Address Box */
+        .address-box {
+            background: #faf9f6;
+            border: 2px solid #e5e5e0;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .address-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #2c2c2c;
+            margin-bottom: 1rem;
+        }
+
+        .address-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #4a4a4a;
+        }
+
+        /* Contact Info Section */
+        .contact-info-section {
+            padding: 4rem 2rem;
+            background: #faf9f6;
+        }
+
+        .contact-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .contact-card {
+            background: #ffffff;
+            border: 2px solid #e5e5e0;
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(251, 146, 60, 0.2);
+            border-color: rgba(251, 146, 60, 0.4);
+        }
+
+        .contact-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #f472b6, #fb923c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.8rem;
+        }
+
+        .contact-quote {
+            font-size: 0.95rem;
+            font-style: italic;
+            color: #6b6b6b;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .contact-details {
+            margin-top: 1rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin: 0.8rem 0;
+            font-size: 1rem;
+            color: #4a4a4a;
+        }
+
+        .contact-item a {
+            color: #fb923c;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .contact-item a:hover {
+            color: #f472b6;
+        }
+
+        /* Footer */
+        footer {
+            background: #ffffff;
+            border-top: 1px solid #e5e5e0;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            color: #6b6b6b;
+        }
+
+        .footer-logo {
+            font-size: 1.2rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #f472b6, #fb923c, #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Hide default Frappe footer */
+        .web-footer,
+        .website-footer,
+        [class*="powered-by"]:not(.powered-by),
+        [class*="frappe-footer"] {
+            display: none !important;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(255, 255, 255, 0.98);
+                padding: 2rem;
+                gap: 1.5rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .page-title {
+                font-size: 2.5rem;
+            }
+
+            .page-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .section-content {
+                font-size: 1rem;
+            }
+
+            .leadership-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                <a href="index.html" class="logo-text">LiT</a>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="support.html">Support</a></li>
+                <li><a href="career.html">Career</a></li>
+                <li><a href="about.html" class="active">About Us</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1 class="page-title">About Us</h1>
+        <p class="page-subtitle">Building world-class technology for a connected future</p>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="about-container">
+
+            <!-- Introduction -->
+            <div class="section-block">
+                <div class="section-header">
+                    <span class="section-icon">🚀</span>
+                    <h2 class="section-title">Larayan Information and Technology Private Limited (LiT)</h2>
+                </div>
+                <div class="section-content">
+                    <p>
+                        Larayan Information and Technology Private Limited (LiT) is a forward-thinking technology
+                        company focused on building high-performance digital platforms designed for modern scalability,
+                        global reliability, and future-proof engineering. We are committed to creating world-leading
+                        technology experiences that are simple, powerful, and accessible to everyone.
+                    </p>
+                    <p>
+                        At LiT, we design, develop, and operate products that combine robust engineering with
+                        user-centric design. Our approach is rooted in precision, transparency, and innovation —
+                        ensuring that every solution we build is capable of serving thousands of users with speed,
+                        security, and stability. Whether we are architecting a platform, integrating real-world
+                        services, or delivering high-availability systems, our focus remains the same: world-class
+                        technology with uncompromising performance.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Leadership -->
+            <div class="section-block">
+                <div class="section-header">
+                    <span class="section-icon">👥</span>
+                    <h2 class="section-title">Leadership</h2>
+                </div>
+                <div class="section-content">
+                    <p>LiT is guided by strong, experienced leadership:</p>
+                </div>
+                <div class="leadership-grid">
+                    <div class="leader-card">
+                        <h3 class="leader-name">Mr. Madhu Pal</h3>
+                        <p class="leader-title">Founder, CEO & Director</p>
+                        <p class="leader-description">
+                            With profound insight into emerging technologies and industrial infrastructure, he leads the
+                            company's technical vision with a focus on innovation and excellence. His expertise in
+                            architecting scalable enterprise systems drives our long-term strategy, ensuring that every
+                            digital platform we build is robust, impactful, and future-ready.
+                        </p>
+                    </div>
+                    <div class="leader-card">
+                        <h3 class="leader-name">Mr. Ramdayal Pal</h3>
+                        <p class="leader-title">Co-Director</p>
+                        <p class="leader-description">
+                            A retired WCL (Western Coalfields Limited) central government employee, he brings decades of
+                            experience in governance, compliance, and operational discipline. His guidance strengthens
+                            LiT's foundation and ensures responsible, structured growth.
+                        </p>
+                    </div>
+                </div>
+                <div class="highlight-box">
+                    <p>
+                        Together, this leadership ensures that LiT operates with a perfect balance of technical depth
+                        and organizational maturity.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Technology Philosophy -->
+            <div class="section-block">
+                <div class="section-header">
+                    <span class="section-icon">⚙️</span>
+                    <h2 class="section-title">Our Technology Philosophy</h2>
+                </div>
+                <div class="section-content">
+                    <p>
+                        Our products are built with modern engineering principles — modularity, high-availability
+                        design, rapid scalability, and clean integration. We rely on battle-tested open-source
+                        technologies and global cloud infrastructure to ensure reliability at scale.
+                    </p>
+                    <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: #2c2c2c; font-size: 1.4rem;">Technology
+                        Acknowledgment</h3>
+                    <p>
+                        As part of our commitment to open-source respect and license compliance, we acknowledge that our
+                        platform leverages:
+                    </p>
+                    <ul class="tech-list">
+                        <li><a href="https://frappeframework.com" target="_blank">Frappe Framework</a></li>
+                        <li>Frappe LMS</li>
+                        <li>MariaDB</li>
+                        <li>Supporting cloud services such as Bunny.net, Hetzner Cloud, Razorpay, and more</li>
+                    </ul>
+                    <p style="margin-top: 1.5rem; font-style: italic; color: #6b6b6b;">
+                        These technologies are used independently by LiT as part of our engineering stack. All
+                        trademarks and names belong to their respective owners and are used strictly for identification
+                        and compliance purposes.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Vision -->
+            <div class="section-block">
+                <div class="section-header">
+                    <span class="section-icon">🌟</span>
+                    <h2 class="section-title">Our Vision</h2>
+                </div>
+                <div class="highlight-box">
+                    <p>
+                        To build technology that is not just functional, but future-ready. Systems that scale
+                        effortlessly. Platforms that stay stable under pressure. Experiences that feel seamless,
+                        intuitive, and globally accessible.
+                    </p>
+                </div>
+                <div class="section-content">
+                    <p>
+                        We are not limited to any single industry. We are focused on creating world-leading digital
+                        technology, enabling high-performing platforms in multiple domains including learning,
+                        automation, enterprise systems, and cloud-based services.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Registered Office -->
+            <div class="section-block">
+                <div class="section-header">
+                    <span class="section-icon">📍</span>
+                    <h2 class="section-title">Registered Office</h2>
+                </div>
+                <div class="address-box">
+                    <p class="address-title">Larayan Information and Technology Private Limited (LiT)</p>
+                    <p class="address-content">
+                        Om Chambers, 648/A, 4th Floor,<br>
+                        Binnamangala 1st Stage, Indiranagar,<br>
+                        Bangalore – 560038<br>
+                        India
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Contact Information Section -->
+    <section class="contact-info-section">
+        <div class="contact-grid">
+
+            <!-- Support Contact -->
+            <div class="contact-card">
+                <div class="contact-icon">🛟</div>
+                <h3 class="contact-card-title">Support</h3>
+                <p class="contact-quote">"We don't just solve problems — we prevent them. Your success is our priority,
+                    every single day."</p>
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <span>📞</span>
+                        <a href="tel:+919424439966">+91 9424439966</a>
+                    </div>
+                    <div class="contact-item">
+                        <span>📧</span>
+                        <a href="mailto:support@larayan.com">support@larayan.com</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HR Contact -->
+            <div class="contact-card">
+                <div class="contact-icon">👔</div>
+                <h3 class="contact-card-title">Human Resources</h3>
+                <p class="contact-quote">"Great companies are built by great people. Join us, and let's build the future
+                    together."</p>
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <span>📧</span>
+                        <a href="mailto:hr@larayan.com">hr@larayan.com</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">Larayan Information and Technology</div>
+            <p>&copy; 2025 LiT. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Hamburger menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    </script>
+</body>
+
+</html>
